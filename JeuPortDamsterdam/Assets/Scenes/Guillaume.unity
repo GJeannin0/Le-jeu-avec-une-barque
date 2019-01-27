@@ -161,7 +161,7 @@ MonoBehaviour:
   turnSpeed: 0.3
   angularDrag: 0.5
   accelerationDirection: {x: 0.1, y: 0.5}
-  accelerationSpeed: 3
+  accelerationSpeed: 1
 --- !u!50 &651530940
 Rigidbody2D:
   serializedVersion: 4

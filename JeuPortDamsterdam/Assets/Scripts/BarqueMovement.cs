@@ -25,13 +25,6 @@ public class BarqueMovement : MonoBehaviour
 
     void Update()
     {
-		Vector2 localDirection = (transform.right * accelerationDirection.x + -transform.up * accelerationDirection.y).normalized;
-
-		Debug.DrawLine(transform.position, transform.position + new Vector3(-localDirection.x, -localDirection.y, 0.0f) * accelerationSpeed, Color.red, 10.0f, false);
-		Debug.DrawLine(transform.position, transform.position + new Vector3(-localDirection.x, -localDirection.y, 0.0f) * accelerationSpeed, Color.blue, 10.0f, false);
-		Debug.DrawLine(transform.position, transform.position + new Vector3(localDirection.x, localDirection.y, 0.0f) * accelerationSpeed, Color.yellow, 10.0f, false);
-		Debug.DrawLine(transform.position, transform.position + new Vector3(localDirection.x, localDirection.y, 0.0f) * accelerationSpeed, Color.green, 10.0f, false);
-
 		transform.Rotate(Vector3.back * rotationSpeed);
 
 		if (Math.Abs(rotationSpeed) <= angularDrag * Time.deltaTime)
@@ -53,24 +46,24 @@ public class BarqueMovement : MonoBehaviour
 			}
 		}
 
-		if (Input.GetButtonDown("Fire1"))
+		if (Input.GetButtonDown("Fire1"))		// test buttons
 		{
-			Paddle(1, 1);
+			PaddleUpLeft();
 		}
 
 		if (Input.GetButtonDown("Fire2"))
 		{
-			Paddle(1, -1);
+			PaddleUpRight();
 		}
 
 		if (Input.GetButtonDown("Fire3"))
 		{
-			Paddle(-1, 1);
+			PaddleDownLeft();
 		}
 
 		if (Input.GetButtonDown("Jump"))
 		{
-			Paddle(-1, -1);
+			PaddleDownRight();
 		}
 	}
 
@@ -79,48 +72,31 @@ public class BarqueMovement : MonoBehaviour
 		rotationSpeed += way * turnSpeed;
 	}
 
-	private void Paddle(int side, int way) // side -1 from left, 1 from right     way -1 forward, 1 backward
+	private void PaddleUpLeft()
+	{
+		Vector2 localDirection = (transform.right * accelerationDirection.x + -transform.up * accelerationDirection.y).normalized;
+		myRigidbody.velocity += new Vector2(-localDirection.x, -localDirection.y) * accelerationSpeed;
+		Turn(1);
+	}
+
+	private void PaddleUpRight()
 	{
 		Vector2 localDirection = (transform.right * accelerationDirection.x + transform.up * accelerationDirection.y).normalized;
+		myRigidbody.velocity += new Vector2(localDirection.x, localDirection.y) * accelerationSpeed;
+		Turn(-1);
+	}
 
-		if (side == -1)																	// -- +-		where you paddle
-		{																				// -+ ++
-			if (way == -1)
-			{
-				myRigidbody.velocity += new Vector2(-localDirection.x, -localDirection.y) * accelerationSpeed;
-				Turn(-1);
-				
-			}
-			else
-			{
-				if (way == 1)
-				{
-					myRigidbody.velocity += new Vector2(-localDirection.x, localDirection.y) * accelerationSpeed;
-					Turn(1);
-					
-				}
-			}
-		}
-		else
-		{
-			if (side == 1)
-			{
-				if (way == -1)
-				{
-					myRigidbody.velocity += new Vector2(localDirection.x, -localDirection.y) * accelerationSpeed;
-					Turn(1);
-					
-				}
-				else
-				{
-					if (way == 1)
-					{
-						myRigidbody.velocity += new Vector2(localDirection.x, localDirection.y) * accelerationSpeed;
-						Turn(1);
-						
-					}
-				}
-			}
-		}
+	private void PaddleDownLeft()
+	{
+		Vector2 localDirection = (transform.right * -accelerationDirection.x + transform.up * -accelerationDirection.y).normalized;
+		myRigidbody.velocity += new Vector2(localDirection.x, localDirection.y) * accelerationSpeed;
+		Turn(-1);
+	}
+
+	private void PaddleDownRight()
+	{
+		Vector2 localDirection = (transform.right * accelerationDirection.x + -transform.up * accelerationDirection.y).normalized;
+		myRigidbody.velocity += new Vector2(localDirection.x, localDirection.y) * accelerationSpeed;
+		Turn(1);
 	}
 }
