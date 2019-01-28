@@ -32,9 +32,10 @@ public class BarqueMovement : MonoBehaviour
 	[SerializeField] private float maxTimeBetweenSyncroPaddles = 0.1f;
 	[SerializeField] private float bonusSpeedWhenSyncro = 1.0f;
 
+	[SerializeField] private GameObject cameraHolder;
+	[SerializeField] private float cameraMaximumDistanceFromPlayer = 2.0f;
 
-
-    void Start()
+	void Start()
     {
 		myRigidbody = GetComponent<Rigidbody2D>();
 	}
@@ -153,6 +154,13 @@ public class BarqueMovement : MonoBehaviour
 		if (Input.GetButtonDown("Jump"))
 		{
 			PaddleDownRight();
+		}
+
+		cameraHolder.transform.position = transform.position + transform.up + new Vector3 (myRigidbody.velocity.x, myRigidbody.velocity.y);
+
+		if ((transform.position - cameraHolder.transform.position).magnitude > cameraMaximumDistanceFromPlayer)
+		{
+			cameraHolder.transform.position = transform.position + transform.up + (new Vector3(myRigidbody.velocity.x, myRigidbody.velocity.y)).normalized * cameraMaximumDistanceFromPlayer;
 		}
 	}
 
