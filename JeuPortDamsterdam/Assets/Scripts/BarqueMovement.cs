@@ -35,14 +35,48 @@ public class BarqueMovement : MonoBehaviour
 	[SerializeField] private GameObject cameraHolder;
 	[SerializeField] private float cameraMaximumDistanceFromPlayer = 2.0f;
 
+	[SerializeField] private float rotationInvertRatio = -0.7f;
+
+	[SerializeField] private float baseLife = 3.0f;
+	private float currentLife = 1.0f;
+
+	[SerializeField] private float invincibilityDuration = 2.0f;
+	private float invincibilityTimer = 0.0f;
+	private bool isInvincible = false;
+
+	private SpriteRenderer mySpriteRenderer;
+	[SerializeField] private Color baseColor = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+	[SerializeField] private Color invincibilityColor = new Color(1.0f, 1.0f, 1.0f, 0.5f);
+
 	void Start()
     {
 		myRigidbody = GetComponent<Rigidbody2D>();
+		mySpriteRenderer = GetComponent<SpriteRenderer>();
+		currentLife = baseLife;
 	}
 
 
     void Update()
     {
+		if (isInvincible)
+		{
+			if (mySpriteRenderer.color == baseColor)
+			{
+				mySpriteRenderer.color = invincibilityColor;
+			}
+			else
+			{
+				mySpriteRenderer.color = baseColor;
+			}
+				invincibilityTimer += Time.deltaTime;
+			if (invincibilityTimer > invincibilityDuration)
+			{
+				invincibilityTimer = 0.0f;
+				isInvincible = false;
+				mySpriteRenderer.color = baseColor;
+			}
+		}
+
 		if (paddledDownLeft)
 		{
 			if (paddledDownLeftTimer < maxTimeBetweenSyncroPaddles)
@@ -136,22 +170,22 @@ public class BarqueMovement : MonoBehaviour
 			}
 		}
 
-		if (Input.GetButtonDown("Fire1"))		// test buttons
+		if (Input.GetButtonDown("PaddleUpLeft"))	
 		{
 			PaddleUpLeft();
 		}
 
-		if (Input.GetButtonDown("Fire2"))
+		if (Input.GetButtonDown("PaddleUpRight"))
 		{
 			PaddleUpRight();
 		}
 
-		if (Input.GetButtonDown("Fire3"))
+		if (Input.GetButtonDown("PaddleBackLeft"))
 		{
 			PaddleDownLeft();
 		}
 
-		if (Input.GetButtonDown("Jump"))
+		if (Input.GetButtonDown("PaddleBackRight"))
 		{
 			PaddleDownRight();
 		}
@@ -199,5 +233,26 @@ public class BarqueMovement : MonoBehaviour
 		myRigidbody.velocity += new Vector2(localDirection.x, localDirection.y) * accelerationSpeed;
 		Turn(1);
 		paddledDownRight = true;
+	}
+
+	private void OnCollisionEnter2D(Collision2D collision)
+	{
+		if (collision.gameObject.tag == ("Map Border"))
+		{
+			rotationSpeed *= rotationInvertRatio;
+		}
+
+		if (!isInvincible)
+		{
+			currentLife--;
+			if (currentLife <= 0.0f)
+			{
+				Debug.Log("Perdu");
+			}
+			else
+			{
+				isInvincible = true;
+			}
+		}
 	}
 }
