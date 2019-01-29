@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Barque
+  - Map Border
   layers:
   - Default
   - TransparentFX
@@ -44,6 +46,12 @@ TagManager:
   - name: Map
     uniqueID: 1878665555
     locked: 0
-  - name: Player
+  - name: Trail
+    uniqueID: 1247238601
+    locked: 0
+  - name: Sailer
+    uniqueID: 561478761
+    locked: 0
+  - name: Paddle
     uniqueID: 3573638409
     locked: 0

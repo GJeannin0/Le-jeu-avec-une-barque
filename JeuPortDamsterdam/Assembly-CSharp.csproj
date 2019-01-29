@@ -114,6 +114,11 @@
     <Compile Include="Assets\Cinemachine\Timeline\CinemachineShot.cs" />
     <Compile Include="Assets\Cinemachine\Timeline\CinemachineTrack.cs" />
     <Compile Include="Assets\Scripts\BarqueMovement.cs" />
+    <Compile Include="Assets\Scripts\HealthBar.cs" />
+    <Compile Include="Assets\Scripts\LeftPaddleAnim.cs" />
+    <Compile Include="Assets\Scripts\LoseCondition.cs" />
+    <Compile Include="Assets\Scripts\MenuPause.cs" />
+    <Compile Include="Assets\Scripts\RightPaddleAnim.cs" />
     <None Include="Assets\Cinemachine\ReleaseNotes.txt" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/Users/Guillaume/Desktop/Jeu deBarque/Le jeu avec une barque/JeuPortDamsterdam/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
