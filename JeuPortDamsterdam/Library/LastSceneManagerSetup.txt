@@ -1,8 +1,4 @@
 sceneSetups:
-<<<<<<< HEAD
 - path: Assets/Scenes/Adam.unity
-=======
-- path: Assets/Scenes/Guillaume.unity
->>>>>>> development
   isLoaded: 1
   isActive: 1
