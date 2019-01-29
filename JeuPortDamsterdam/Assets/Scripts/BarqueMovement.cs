@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 
 public class BarqueMovement : MonoBehaviour
 {
-
 	[SerializeField] private float turnSpeed = 1.0f;
 
 	private float rotationSpeed = 0.0f;
@@ -37,7 +37,7 @@ public class BarqueMovement : MonoBehaviour
 
 	[SerializeField] private float rotationInvertRatio = -0.7f;
 
-	[SerializeField] private float baseLife = 3.0f;
+	[SerializeField] private float baseLife = 40.0f;
 	private float currentLife = 1.0f;
 
 	[SerializeField] private float invincibilityDuration = 2.0f;
@@ -244,10 +244,16 @@ public class BarqueMovement : MonoBehaviour
 
 		if (!isInvincible)
 		{
+			if (collision.gameObject.tag == ("End"))
+			{
+				SceneManager.LoadScene("Guillaume");
+			}
+
 			currentLife--;
 			if (currentLife <= 0.0f)
 			{
 				Debug.Log("Perdu");
+				SceneManager.LoadScene("Guillaume");
 			}
 			else
 			{

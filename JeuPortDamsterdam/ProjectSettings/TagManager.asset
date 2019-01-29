@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Barque
   - Map Border
+  - End
   layers:
   - Default
   - TransparentFX
@@ -45,6 +46,12 @@ TagManager:
     locked: 0
   - name: Map
     uniqueID: 1878665555
+    locked: 0
+  - name: map2
+    uniqueID: 2093762933
+    locked: 0
+  - name: map3
+    uniqueID: 1075959101
     locked: 0
   - name: Trail
     uniqueID: 1247238601
